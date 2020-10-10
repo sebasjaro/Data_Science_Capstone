@@ -1,0 +1,42 @@
+---
+title: 'Data Science Capstone: Milestone Report'
+author: "Sebastian Jaroszewicz"
+date: "10/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+This is the Milestone Report for the Coursera Data Science Capstone Project.The goal of the capstone project is to create a predictive text model using a large text corpus of documents as training data. Natural language processing techniques will be used to perform the analysis and build the predictive model.
+The objective of this report is to preprocess the data, perform an exploratory data analysis and summarize the main features of the training data. The dataset was provided by SwiftKey.
+
+## Getting the Data
+Download, unzip and load the data. The data is downloaded from https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip
+
+```{r data}
+#Verify that the data has not been previously downloaded, download and unzip
+url <- "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip"
+file_name <- "Coursera-SwiftKey.zip"
+if (!file.exists(file_name)) {
+  download.file(url,file_name)
+  unzip(file_name)
+}
+
+# read the data
+file_b <- file("final/en_US/en_US.blogs.txt","rb")
+blogs <- readLines(file_b, encoding = "UTF-8", skipNul = TRUE)
+close(file_b)
+
+file_n <- file("final/en_US/en_US.news.txt","rb")
+blogs <- readLines(file_n, encoding = "UTF-8", skipNul = TRUE)
+close(file_n)
+
+file_t <- file("final/en_US/en_US.twitter.txt","rb")
+blogs <- readLines(file_t, encoding = "UTF-8", skipNul = TRUE)
+close(file_t)
+```
+
