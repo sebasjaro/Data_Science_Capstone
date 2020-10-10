@@ -391,12 +391,90 @@ blogs &lt;- readLines(file_b, encoding = &quot;UTF-8&quot;, skipNul = TRUE)
 close(file_b)
 
 file_n &lt;- file(&quot;final/en_US/en_US.news.txt&quot;,&quot;rb&quot;)
-blogs &lt;- readLines(file_n, encoding = &quot;UTF-8&quot;, skipNul = TRUE)
+news &lt;- readLines(file_n, encoding = &quot;UTF-8&quot;, skipNul = TRUE)
 close(file_n)
 
 file_t &lt;- file(&quot;final/en_US/en_US.twitter.txt&quot;,&quot;rb&quot;)
-blogs &lt;- readLines(file_t, encoding = &quot;UTF-8&quot;, skipNul = TRUE)
+twitter &lt;- readLines(file_t, encoding = &quot;UTF-8&quot;, skipNul = TRUE)
 close(file_t)</code></pre>
+</div>
+<div id="data-summary" class="section level2">
+<h2>Data Summary</h2>
+<pre class="r"><code>library(stringi)
+library(kableExtra)
+
+# Files sizes
+files &lt;- c(&quot;final/en_US/en_US.blogs.txt&quot;,&quot;final/en_US/en_US.news.txt&quot;,&quot;final/en_US/en_US.twitter.txt&quot;)
+file_names &lt;- c(&quot;Blogs&quot;,&quot;News&quot;,&quot;Twitter&quot;)
+file_sizes &lt;- file.info(files)$size/1024^2
+
+# Number of lines per file
+n_lines &lt;- c(length(blogs),length(news),length(twitter))
+n_words &lt;- c(sum(stri_count_words(blogs)), sum(stri_count_words(news)), sum(stri_count_words(twitter)))
+summary_df &lt;- data.frame(File = file_names, Size = file_sizes, Lines = n_lines, Words = n_words)
+kable(summary_df)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:right;">
+Size
+</th>
+<th style="text-align:right;">
+Lines
+</th>
+<th style="text-align:right;">
+Words
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Blogs
+</td>
+<td style="text-align:right;">
+200.4242
+</td>
+<td style="text-align:right;">
+899288
+</td>
+<td style="text-align:right;">
+37546239
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+News
+</td>
+<td style="text-align:right;">
+196.2775
+</td>
+<td style="text-align:right;">
+1010242
+</td>
+<td style="text-align:right;">
+34762395
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Twitter
+</td>
+<td style="text-align:right;">
+159.3641
+</td>
+<td style="text-align:right;">
+2360148
+</td>
+<td style="text-align:right;">
+30093413
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
