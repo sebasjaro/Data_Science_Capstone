@@ -58,5 +58,23 @@ summary_df <- data.frame(File = file_names, Size = file_sizes, Lines = n_lines, 
 #kable(summary_df)
 summary_df %>% 
         kbl() %>%
-        kable_styling()
+        kable_paper(bootstrap_options = "striped", full_width = F)
 ```
+
+## Sampling
+As can be seen in the table above, the sets are very large. Due to this we will carry out a sampling of the data in order to improve the performance of the analysis. We will randomly choose 1% of each data set to demonstrate data preprocessing and exploratory data analysis.
+
+```{r sampling}
+set.seed(31415)
+percent <- .01
+sample_blogs <- sample(blogs, length(blogs) * percent)
+sample_news <- sample(news, length(news) * percent)
+sample_twitter <- sample(twitter, length(twitter) * percent)
+sample <- c(sample_blogs, sample_news, sample_twitter)
+lines_sample <- length(sample)
+words_sample <- sum(stri_count_words(sample))
+```
+The number of lines in the data sample is `r toString(lines_sample)` and the number of words is `r toString(words_sample)`
+
+## Cleaning and preprocessing the data
+
